@@ -1,0 +1,142 @@
+# ===========================
+# CREDENCIALES Y CONFIGURACIÓN
+# ===========================
+**/application.properties
+**/application.yml
+**/application-*.properties
+**/application-*.yml
+**/.env
+**/*.pem
+**/*.key
+**/*.p12
+**/*.jks
+
+# Sí se sube el ejemplo
+!**/application.properties.example
+!**/application.yml.example
+!**/.env.example
+
+# ===========================
+# JAVA / MAVEN
+# ===========================
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+*.class
+*.jar
+*.war
+*.ear
+
+# ===========================
+# PYTHON
+# ===========================
+
+# Entorno virtual
+venv/
+.venv/
+env/
+ENV/
+
+# Cache de Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+
+# Distribución y packaging
+*.egg
+*.egg-info/
+dist/
+build/
+
+# pytest
+.pytest_cache/
+.coverage
+htmlcov/
+
+# mypy
+.mypy_cache/
+
+# ChromaDB (base de datos vectorial generada localmente)
+**/chroma_db/
+
+# ===========================
+# NODE / ANGULAR
+# ===========================
+
+# Dependencias
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Build de Angular
+/frontend/dist/
+/frontend/.angular/cache/
+
+# Cache de Angular CLI
+.angular/
+
+# ===========================
+# IDEs
+# ===========================
+
+# IntelliJ IDEA
+.idea/
+*.iws
+*.iml
+*.ipr
+
+# VS Code
+.vscode/
+!.vscode/extensions.json
+
+# Eclipse
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+# NetBeans
+/nbproject/private/
+/nbbuild/
+/nbdist/
+/.nb-gradle/
+
+# ===========================
+# SISTEMA OPERATIVO
+# ===========================
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Mac
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Linux
+*~
+
+# ===========================
+# LOGS
+# ===========================
+*.log
+logs/
+spring.log
+
+# ===========================
+# OTROS
+# ===========================
+*.zip
+*.tar.gz
+*.rar
+.env
