@@ -1,6 +1,6 @@
 # 🍃 Spring Tutor Agent
 
-Aplicación web full-stack para aprender **Spring Framework** mediante un tutor conversacional con IA. Haz preguntas sobre Spring Boot, Spring Data JPA, anotaciones, y más — el agente responde usando contexto extraído de la documentación oficial mediante **RAG (Retrieval-Augmented Generation)**.
+Aplicación web full-stack para aprender **Spring Framework** mediante un tutor conversacional con IA. Haz preguntas sobre Spring Boot, Spring Data JPA, anotaciones, y más. El agente responde usando contexto extraído de la documentación oficial mediante **RAG (Retrieval-Augmented Generation)**.
 
 ---
 
