@@ -1,73 +1,169 @@
-<div class="flex flex-col h-screen bg-gray-50">
-
-  <!-- Navbar -->
-  <nav class="bg-white border-b border-gray-200 px-6 py-4 flex items-center gap-2">
-    <div class="bg-green-500 text-white w-8 h-8 rounded-lg flex items-center justify-center font-bold text-sm">S</div>
-    <span class="font-semibold text-gray-800">Spring Tutor</span>
-  </nav>
-
-  <!-- Área de mensajes -->
-  <div class="flex-1 overflow-y-auto px-4 py-6 space-y-4">
-
-    <!-- Mensaje de bienvenida -->
-    @if (messages.length === 0) {
-      <div class="flex flex-col items-center justify-center h-full text-center gap-3">
-        <div class="bg-green-500 text-white w-16 h-16 rounded-2xl flex items-center justify-center text-3xl">🍃</div>
-        <h2 class="text-xl font-semibold text-gray-700">¡Hola! Soy tu Spring Tutor</h2>
-        <p class="text-gray-400 max-w-sm">Puedo ayudarte con Spring Boot, Spring Data, Spring Security y más. ¿Qué quieres aprender hoy?</p>
+<app-nav-bar/>
+<main
+  class="flex-grow flex flex-col items-center justify-center p-4 sm:p-6 lg:p-8"
+>
+  <div
+    class="w-full max-w-4xl bg-surface-light dark:bg-surface-dark rounded-2xl shadow-soft border border-border-light dark:border-border-dark overflow-hidden flex flex-col h-[80vh] sm:h-[750px]"
+  >
+    <div
+      class="px-6 py-4 border-b border-border-light dark:border-border-dark flex items-center justify-between bg-surface-light dark:bg-surface-dark"
+    >
+      <div class="flex items-center gap-4">
+        <div class="relative">
+          <div
+            class="w-12 h-12 rounded-full bg-green-50 dark:bg-slate-800 flex items-center justify-center border border-green-100 dark:border-slate-700"
+          >
+            <img
+              alt="Spring Logo"
+              class="w-8 h-8"
+              src="spring-logo.png"
+            />
+          </div>
+          <span
+            class="absolute bottom-0 right-0 block h-3 w-3 rounded-full ring-2 ring-white dark:ring-surface-dark bg-green-500"
+          ></span>
+        </div>
+        <div>
+          <h2
+            class="text-lg font-bold text-slate-900 dark:text-white leading-tight"
+          >
+            Spring Tutor Agent
+          </h2>
+          <p class="text-xs text-slate-500 dark:text-slate-400">
+            Listo para ayudarte con Spring Boot &amp; MVC
+          </p>
+        </div>
       </div>
-    }
-
-    <!-- Lista de mensajes -->
-    @for (message of messages; track $index) {
-      <div class="flex" [class.justify-end]="message.role === 'USER'">
-        <div
-          class="max-w-[75%] px-4 py-3 rounded-2xl text-sm leading-relaxed"
-          [class.bg-green-500]="message.role === 'USER'"
-          [class.text-white]="message.role === 'USER'"
-          [class.bg-white]="message.role === 'ASSISTANT'"
-          [class.text-gray-800]="message.role === 'ASSISTANT'"
-          [class.shadow-sm]="message.role === 'ASSISTANT'"
+      <div class="flex items-center gap-2">
+        <!-- <button
+          class="p-2 rounded-full text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-primary transition-colors"
+          title="Ver código"
         >
-          @if (message.role === 'ASSISTANT') {
-            <div [innerHTML]="renderMarkdown(message.content)"></div>
-          } @else {
-            {{ message.content }}
-          }
-        </div>
+          <span class="material-icons-round">code</span>
+        </button> -->
+        <button
+          (click)="messages = []"
+          class="flex items-center justify-center p-2 rounded-full text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-red-500 transition-colors"
+          title="Borrar chat"
+        >
+          <span class="material-icons-round">delete_outline</span>
+        </button>
       </div>
-    }
-
-    <!-- Indicador de carga -->
-    @if (isLoading) {
-      <div class="flex">
-        <div class="bg-white shadow-sm px-4 py-3 rounded-2xl text-sm text-gray-400">
-          Pensando...
-        </div>
-      </div>
-    }
-
-  </div>
-
-  <!-- Input -->
-  <div class="bg-white border-t border-gray-200 px-4 py-4">
-    <div class="flex items-center gap-3 bg-gray-50 rounded-2xl px-4 py-3">
-      <textarea
-        [(ngModel)]="inputMessage"
-        (keydown)="onKeyDown($event)"
-        placeholder="Escribe tu pregunta sobre Spring..."
-        rows="1"
-        class="flex-1 bg-transparent resize-none outline-none text-sm text-gray-700 placeholder-gray-400"
-      ></textarea>
-      <button
-        (click)="sendMessage()"
-        [disabled]="isLoading || !inputMessage.trim()"
-        class="bg-green-500 hover:bg-green-600 disabled:opacity-50 disabled:cursor-not-allowed text-white w-8 h-8 rounded-full flex items-center justify-center transition-colors"
-      >
-        ▶
-      </button>
     </div>
-    <p class="text-center text-xs text-gray-400 mt-2">La IA puede cometer errores. Por favor verifica con la documentación oficial.</p>
-  </div>
+    <div
+      class="grow overflow-y-auto p-6 space-y-6 bg-slate-50/50 dark:bg-slate-900/50"
+    >
+      @if (messages.length === 0) {
+        <div class="flex flex-col gap-1 max-w-[85%]">
+          <div class="flex items-end gap-3">
+            <div
+              class="w-8 h-8 rounded-full bg-white dark:bg-slate-800 flex-shrink-0 flex items-center justify-center border border-border-light dark:border-border-dark shadow-sm"
+            >
+              <img
+                alt="Spring Bot"
+                class="w-5 h-5"
+                src="spring-logo.png"
+              />
+            </div>
+            <div
+              class="bg-white dark:bg-slate-800 p-4 rounded-2xl rounded-bl-none shadow-sm border border-border-light dark:border-border-dark text-slate-700 dark:text-slate-200 text-sm leading-relaxed"
+            >
+              <p class="font-semibold mb-1 text-primary">Spring Tutor Agent</p>
+              <p>¡Hola! Soy tu <strong>Spring Tutor</strong>.</p>
+              <p class="mt-2">
+                Puedo ayudarte a entender la Inyección de Dependencias,
+                configurar Spring Security o crear una API REST reactiva. ¿Qué
+                quieres aprender hoy?
+              </p>
+            </div>
+          </div>
+        </div>
+      }
 
-</div>
+      @for (message of messages; track $index) {
+        @if (message.role === "USER") {
+          <div class="flex flex-col gap-1 items-end ml-auto max-w-[85%]">
+            <div
+              class="bg-primary text-white p-4 rounded-2xl rounded-br-none shadow-md text-sm leading-relaxed"
+            >
+              <p>{{ message.content }}</p>
+            </div>
+          </div>
+        } @else {
+          <div class="flex flex-col gap-1 max-w-[85%]">
+            <div class="flex items-end gap-3">
+              <div
+                class="w-8 h-8 rounded-full bg-white dark:bg-slate-800 flex-shrink-0 flex items-center justify-center border border-border-light dark:border-border-dark shadow-sm"
+              >
+                <img
+                  alt="Spring Bot"
+                  class="w-5 h-5"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuBW-ZkBcZNf21PTgIOvmI80Ccs9dtCNC8ZDzHjGzJ2T2VjJT0G2TirrJqoq3NjW_4vthsnLbeODGQZY4cwwRGQyUlHcPzGEFIY6vMa_blJkQmOB9-oRVNgwYDKa6OIjbmgVomL2BiDwdYS3k1zuUlwzVWJ31fjKA8b2iH2zkCEgdXroF9HaXDz1EqM2lk34WAlMgjKGoajuINrrOFUTOFj9uZzq36sEsIIubsmsU3PIqb6sE6NEi359eTsEE0tY2aA0YOaYlIG_zP4"
+                />
+              </div>
+              <div
+                class="bg-white dark:bg-slate-800 p-4 rounded-2xl rounded-bl-none shadow-sm border border-border-light dark:border-border-dark text-slate-700 dark:text-slate-200 text-sm leading-relaxed"
+              >
+                <div class="markdown-body" [innerHTML]="renderMarkdown(message.content)"></div>
+              </div>
+            </div>
+          </div>
+        }
+      }
+
+      <!-- Indicador de carga -->
+      @if (isLoading) {
+        <div class="flex items-end gap-3 animate-pulse">
+          <div
+            class="w-8 h-8 rounded-full bg-white dark:bg-slate-800 flex-shrink-0 flex items-center justify-center border border-border-light dark:border-border-dark"
+          >
+            <img alt="Spring Bot" class="w-5 h-5 opacity-50" src="spring-logo.png" />
+          </div>
+          <div
+            class="bg-white dark:bg-slate-800 px-4 py-3 rounded-2xl rounded-bl-none border border-border-light dark:border-border-dark flex items-center gap-1"
+          >
+            <div class="w-2 h-2 bg-slate-400 rounded-full animate-bounce"></div>
+            <div
+              class="w-2 h-2 bg-slate-400 rounded-full animate-bounce delay-75"
+            ></div>
+            <div
+              class="w-2 h-2 bg-slate-400 rounded-full animate-bounce delay-150"
+            ></div>
+          </div>
+        </div>
+      }
+    </div>
+    <div
+      class="p-4 bg-surface-light dark:bg-surface-dark border-t border-border-light dark:border-border-dark"
+    >
+      <div class="relative flex items-center">
+        <div
+          class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none"
+        ></div>
+        <input
+          [(ngModel)]="inputMessage"
+          (keydown)="onKeyDown($event)"
+          class="block w-full pl-6 pr-14 py-4 bg-slate-50 dark:bg-slate-900 border-none rounded-2xl text-slate-900 dark:text-white placeholder-slate-400 focus:ring-2 focus:ring-primary focus:outline-none focus:bg-white dark:focus:bg-slate-800 transition-all shadow-inner"
+          placeholder="Escribe tu pregunta sobre Spring Framework..."
+          type="text"
+        />
+        <button
+          (click)="sendMessage()"
+          [disabled]="isLoading || !inputMessage.trim()"
+          class="absolute right-2 flex items-center justify-center p-2 bg-primary/20 hover:bg-primary text-primary hover:text-white rounded-xl transition-all duration-200 group disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          <span
+            class="material-icons-round transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform text-xl"
+            >arrow_upward</span
+          >
+        </button>
+      </div>
+      <div class="text-center mt-3">
+        <p class="text-[10px] text-slate-400 dark:text-slate-500">
+          La IA puede cometer errores. Por favor verifica la información con la
+          documentación oficial de Spring.
+        </p>
+      </div>
+    </div>
+  </div>
+</main>

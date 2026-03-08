@@ -1,0 +1,211 @@
+<app-nav-bar/>
+<main
+  class="flex-grow flex items-center justify-center relative overflow-hidden px-6 py-12 lg:py-24"
+>
+  <div
+    class="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none -z-10"
+  >
+    <div
+      class="absolute -top-[20%] -right-[10%] w-[800px] h-[800px] bg-primary/10 dark:bg-primary/5 rounded-full blur-3xl"
+    ></div>
+    <div
+      class="absolute bottom-[10%] left-[10%] w-[500px] h-[500px] bg-blue-400/10 dark:bg-blue-600/5 rounded-full blur-3xl"
+    ></div>
+  </div>
+  <div
+    class="max-w-7xl w-full grid lg:grid-cols-2 gap-12 lg:gap-8 items-center"
+  >
+    <div class="space-y-8 text-center lg:text-left z-10">
+      <h1
+        class="text-5xl lg:text-7xl font-extrabold tracking-tight leading-tight"
+      >
+        Domina Spring.<br />
+        <span class="text-gradient">De anotación en anotación.</span>
+      </h1>
+      <p
+        class="text-lg lg:text-xl text-muted-light dark:text-muted-dark max-w-2xl mx-auto lg:mx-0 leading-relaxed"
+      >
+        Tu tutor personal de IA especializado en el ecosistema Spring. Con
+        análisis de código, ejemplos de inyección de dependencias y expertise en
+        microservicios para llevarte de Junior a Arquitecto.
+      </p>
+      <div
+        class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
+      >
+        <button
+          routerLink="/chat"
+          class="bg-primary hover:bg-primary-dark text-white font-bold py-4 px-8 rounded-xl shadow-lg shadow-primary/30 transition-all transform hover:-translate-y-1 flex items-center justify-center gap-2 text-lg"
+        >
+          Empezar a Chatear
+          <span class="material-icons">chat</span>
+        </button>
+        <a
+          href="https://github.com/GuilleAlvareez/Spring-Tutor-Agent"
+          target="_blank"
+          class="bg-white dark:bg-card-dark border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 text-text-light dark:text-text-dark font-medium py-4 px-8 rounded-xl transition-all flex items-center justify-center gap-2"
+        >
+          <span class="material-icons">code</span>
+          Ver Documentación
+        </a>
+      </div>
+      <div
+        class="pt-8 flex items-center justify-center lg:justify-start gap-4 text-sm text-muted-light dark:text-muted-dark"
+      >
+        <div class="flex -space-x-2">
+          <div
+            class="w-8 h-8 rounded-full bg-blue-100 border-2 border-white dark:border-background-dark flex items-center justify-center text-xs font-bold text-blue-600"
+          >
+            JD
+          </div>
+          <div
+            class="w-8 h-8 rounded-full bg-green-100 border-2 border-white dark:border-background-dark flex items-center justify-center text-xs font-bold text-green-600"
+          >
+            AS
+          </div>
+          <div
+            class="w-8 h-8 rounded-full bg-purple-100 border-2 border-white dark:border-background-dark flex items-center justify-center text-xs font-bold text-purple-600"
+          >
+            MR
+          </div>
+        </div>
+        <p>Utilizado por desarrolladores Java</p>
+      </div>
+    </div>
+    <div
+      class="relative flex flex-col items-center lg:items-end justify-center"
+    >
+      <div
+        class="absolute -left-12 top-1/2 -translate-y-1/2 hidden xl:block w-64 h-64 pointer-events-none z-0 opacity-90 transform -rotate-12"
+      >
+        <img
+          alt="Spring Mascot Robot"
+          class="w-full h-full drop-shadow-2xl"
+          src="https://lh3.googleusercontent.com/aida-public/AB6AXuA2kgvLzQx0Prt8x7v2OQWmLjVYqSmFrDsBvgA9RxZgnUxHcteTQSPhx8X5-Ct7vBxUdcf7rzhm63UKbMvTX65JM0-f_dINUB_xVewAliuKyKgOQBF9j940QjLRJ1ovFHtZl89Y1lkgDPaVrYOXV9y8P0koUnKSvhPt43DaJT6tPZlC0qf2qWdlg6um8UF0BJ7Ysw5kgnvetTkSB5N_MX3Vhf0U2xQyQVahb2gb3V2RHoTAeLvXaNLaoUjbSV70ssI2-DFn8iUOtSM"
+        />
+      </div>
+      <div
+        class="bg-card-light dark:bg-card-dark rounded-3xl shadow-2xl border border-gray-100 dark:border-gray-700 w-full max-w-md relative z-10 overflow-hidden"
+      >
+        <div
+          class="bg-gray-50 dark:bg-gray-800/50 p-4 border-b border-gray-100 dark:border-gray-700 flex items-center justify-between"
+        >
+          <div class="flex items-center gap-3">
+            <div class="relative">
+              <div
+                class="w-2 h-2 absolute top-0 right-0 bg-primary rounded-full ring-2 ring-white dark:ring-gray-800"
+              ></div>
+              <img
+                alt="Avatar"
+                class="w-10 h-10 rounded-full bg-green-50"
+                src="spring-logo.png"
+              />
+            </div>
+            <div>
+              <h3 class="font-bold text-sm text-text-light dark:text-text-dark">
+                Spring Tutor Agent
+              </h3>
+              <p class="text-xs text-muted-light dark:text-muted-dark">
+                Siempre activo
+              </p>
+            </div>
+          </div>
+          <div class="flex gap-1">
+            <div class="w-3 h-3 rounded-full bg-red-400"></div>
+            <div class="w-3 h-3 rounded-full bg-yellow-400"></div>
+            <div class="w-3 h-3 rounded-full bg-green-400"></div>
+          </div>
+        </div>
+        <div
+          class="p-6 space-y-6 h-[400px] overflow-y-auto bg-white dark:bg-card-dark"
+        >
+          <div class="flex gap-4">
+            <img
+              alt="Bot"
+              class="w-8 h-8 rounded-full bg-green-50 flex-shrink-0"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuCnYu__eyJDvmiEuqZVpE6a_huVkAAD4NhbFjhy_VGkHKoFHeQnWsMC4HAlL19TzmZ-CeZvsGn1z476ODzDoXza4qQnZ4vOh1zJThGmQ-Fz3hkpBUINbm3oP2wRs4ZbUxcG7FjJgzMGfT5ZLIc4mLcc0fPHR1xqEZKmBP9XIXzLzWbAuf0uYvXZ25rUiXybKzKEeX0gonWeX5auhFOIDLnty6SAkGisCaH9rUvR2iiyO1xgPdXYlXgPS-mSLDtYaebRZccFts4hCk4"
+            />
+            <div class="space-y-2">
+              <div
+                class="bg-gray-100 dark:bg-gray-800 rounded-2xl rounded-tl-none p-4 text-sm text-text-light dark:text-text-dark"
+              >
+                <p class="font-medium mb-1">
+                  ¡Hola! Soy tu <strong>Spring Tutor</strong>.
+                </p>
+                <p>
+                  ¿Qué quieres aprender sobre el framework hoy? Puedo ayudarte
+                  con Spring Boot, Data, Security o Cloud.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="flex gap-4 flex-row-reverse">
+            <div
+              class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold text-xs flex-shrink-0"
+            >
+              YO
+            </div>
+            <div
+              class="bg-primary text-white rounded-2xl rounded-tr-none p-4 text-sm shadow-md"
+            >
+              <p>
+                ¿Cómo funciona la inyección de dependencias con &#64;Autowired?
+              </p>
+            </div>
+          </div>
+          <div class="flex gap-4">
+            <img
+              alt="Bot"
+              class="w-8 h-8 rounded-full bg-green-50 flex-shrink-0"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuARon6_akLLDgBRgKe-PifP8AwtJyK5HTFcBvBHxC7ZeQLeov7AKDo1zmwwG2dNM58tSqupf8t4P2YHxU8t962a-zefZTy7awXImp0dQ2yiLfoLPPmC_pdN3vsbo9zBS9cUhVIR126hIkm69rJ9duonMqxG70r2PgOxztq1EajknzbEqBIMAkGaUuIV1KOHRS1Uan66QlYG4-jORkIKWFQfJravZ5pXp0uHZRmBwZRdoqW6TU4iNBBFysLV0QuBo_eOCZV2gierXuk"
+            />
+            <div
+              class="bg-gray-100 dark:bg-gray-800 rounded-2xl rounded-tl-none p-4 w-16 flex items-center justify-center gap-1"
+            >
+              <div
+                class="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
+              ></div>
+              <div
+                class="w-2 h-2 bg-gray-400 rounded-full animate-bounce delay-75"
+              ></div>
+              <div
+                class="w-2 h-2 bg-gray-400 rounded-full animate-bounce delay-150"
+              ></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<footer
+  class="border-t border-gray-200 dark:border-gray-800 bg-background-light dark:bg-background-dark py-8 px-6 mt-auto"
+>
+  <div
+    class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4"
+  >
+    <div class="text-sm text-muted-light dark:text-muted-dark">
+      © 2025 Spring Tutor Agent. Todos los derechos reservados.
+    </div>
+    <div class="flex items-center gap-6">
+      <a
+        class="text-muted-light dark:text-muted-dark hover:text-primary transition-colors"
+        href="https://github.com/GuilleAlvareez"
+        target="_blank"
+      >
+        <span class="sr-only">GitHub</span>
+        <svg
+          aria-hidden="true"
+          class="h-6 w-6"
+          fill="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            clip-rule="evenodd"
+            d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+            fill-rule="evenodd"
+          ></path>
+        </svg>
+      </a>
+    </div>
+  </div>
+</footer>

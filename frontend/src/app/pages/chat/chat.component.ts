@@ -4,6 +4,9 @@ import { FormsModule } from '@angular/forms';
 import { ChatService } from '../../service/chat.service';
 import { marked } from 'marked';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { RouterModule } from '@angular/router';
+import { NavBarComponent } from '../nav-bar/nav-bar.component';
+import hljs from 'highlight.js';
 
 interface Message {
   role: 'USER' | 'ASSISTANT';
@@ -12,7 +15,7 @@ interface Message {
 
 @Component({
   selector: 'app-chat',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterModule, NavBarComponent],
   templateUrl: './chat.component.html',
 })
 export class ChatComponent {
@@ -22,6 +25,23 @@ export class ChatComponent {
 
   private chatService = inject(ChatService);
   private sanitizer = inject(DomSanitizer);
+
+  constructor() {
+    marked.use({
+      renderer: {
+        code(token: any) {
+          const lang = token.lang || '';
+          const code = token.text;
+          if (lang && hljs.getLanguage(lang)) {
+            const highlighted = hljs.highlight(code, { language: lang }).value;
+            return `<pre><code class="hljs language-${lang}">${highlighted}</code></pre>`;
+          }
+          const highlighted = hljs.highlightAuto(code).value;
+          return `<pre><code class="hljs">${highlighted}</code></pre>`;
+        },
+      },
+    });
+  }
 
   renderMarkdown(content: string): SafeHtml {
     const html = marked.parse(content) as string;

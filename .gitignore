@@ -140,3 +140,4 @@ spring.log
 *.tar.gz
 *.rar
 .env
+diseños/
