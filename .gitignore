@@ -141,3 +141,4 @@ spring.log
 *.rar
 .env
 diseños/
+sshServidor/
