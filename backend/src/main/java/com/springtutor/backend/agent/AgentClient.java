@@ -8,13 +8,19 @@ import org.springframework.web.client.RestTemplate;
 public class AgentClient {
 
   private final RestTemplate restTemplate;
+  private final String agentUrl;
 
   public AgentClient() {
+    String agentUrl = System.getenv("AGENT_URL") != null
+        ? System.getenv("AGENT_URL")
+        : "http://localhost:8000";
+
     this.restTemplate = new RestTemplate();
+    this.agentUrl = agentUrl;
   }
 
   public String sendMessage(String message) {
-    String url = "http://localhost:8000/chat";
+    String url = agentUrl + "/chat";
 
     HttpHeaders headers = new HttpHeaders();
     headers.setContentType(MediaType.APPLICATION_JSON);
