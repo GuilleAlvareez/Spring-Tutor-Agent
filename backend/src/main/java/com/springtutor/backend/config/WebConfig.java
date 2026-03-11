@@ -11,7 +11,7 @@ public class WebConfig implements WebMvcConfigurer {
   @Override
   public void addCorsMappings(CorsRegistry registry) {
     registry.addMapping("/api/**") // aplica a todos los endpoints /api/
-        .allowedOrigins("http://localhost:4200", "http://localhost") // permite peticiones desde Angular
+        .allowedOrigins("http://localhost:4200", "http://localhost", "https://frontend-production-c69a.up.railway.app")
         .allowedMethods("GET", "POST", "PUT", "DELETE") // métodos permitidos
         .allowedHeaders("*"); // permite todos los headers
   }
