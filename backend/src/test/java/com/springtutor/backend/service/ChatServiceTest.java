@@ -1,6 +1,7 @@
 package com.springtutor.backend.service;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 import org.junit.jupiter.api.Test;
@@ -72,5 +73,18 @@ class ChatServiceTest {
 
     // ASSERT — verificamos que la respuesta llega correctamente al controller
     assertEquals(expectedResponse, response.getResponse());
+  }
+
+  @Test
+  void deberieLanzarExcepcionCuandoElAgenteFalla() {
+    // ARRANGE — simulamos que el agente lanza una excepción
+    String userMessage = "¿Qué es Spring Boot?";
+    when(agentClient.sendMessage(userMessage))
+        .thenThrow(new RuntimeException("Agente no disponible"));
+
+    // ACT + ASSERT — verificamos que la excepción se propaga
+    assertThrows(RuntimeException.class, () -> {
+      chatService.sendMessage(userMessage);
+    });
   }
 }

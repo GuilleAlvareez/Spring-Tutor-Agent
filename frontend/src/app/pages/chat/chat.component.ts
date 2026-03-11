@@ -62,10 +62,10 @@ export class ChatComponent {
         this.messages.push({ role: 'ASSISTANT', content: res.response });
         this.isLoading = false;
       },
-      error: () => {
+      error: (err) => {
         this.messages.push({
           role: 'ASSISTANT',
-          content: 'Error al conectar con el servidor.',
+          content: err.error.error || 'Error al conectar con el servidor.',
         });
         this.isLoading = false;
       },

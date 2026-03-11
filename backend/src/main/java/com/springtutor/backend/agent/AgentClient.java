@@ -28,13 +28,17 @@ public class AgentClient {
     String jsonBody = "{\"message\":\"" + message + "\"}";
     HttpEntity<String> entity = new HttpEntity<>(jsonBody, headers);
 
-    ResponseEntity<AgentResponse> response = restTemplate.exchange(
-        url,
-        HttpMethod.POST,
-        entity,
-        AgentResponse.class);
+    try {
+      ResponseEntity<AgentResponse> response = restTemplate.exchange(
+          url,
+          HttpMethod.POST,
+          entity,
+          AgentResponse.class);
 
-    AgentResponse body = response.getBody();
-    return body != null ? body.getResponse() : "Sin respuesta del agente";
+      AgentResponse body = response.getBody();
+      return body != null ? body.getResponse() : "Sin respuesta del agente";
+    } catch (Exception e) {
+      throw new AgentUnavailableException("El agente de IA no está disponible en este momento");
+    }
   }
 }
