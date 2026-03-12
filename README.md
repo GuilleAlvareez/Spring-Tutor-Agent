@@ -1,111 +1,158 @@
 # 🍃 Spring Tutor Agent
 
-Aplicación web full-stack para aprender **Spring Framework** mediante un tutor conversacional con IA. Haz preguntas sobre Spring Boot, Spring Data JPA, anotaciones, y más. El agente responde usando contexto extraído de la documentación oficial mediante **RAG (Retrieval-Augmented Generation)**.
+> Tutor conversacional con IA para aprender Spring Framework. Pregunta sobre Spring Boot, Spring Security, Spring Data JPA y más — el agente responde con contexto extraído de la documentación oficial usando **RAG**.
+
+🔗 **[Demo en vivo](https://springtutoragent-production.up.railway.app)** · 📂 **[Repositorio](https://github.com/GuilleAlvareez/Spring-Tutor-Agent)**
+
+---
+
+![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.5-6DB33F?style=flat&logo=springboot&logoColor=white)
+![Angular](https://img.shields.io/badge/Angular-19-DD0031?style=flat&logo=angular&logoColor=white)
+![Python](https://img.shields.io/badge/Python-3.12-3776AB?style=flat&logo=python&logoColor=white)
+![LangChain](https://img.shields.io/badge/LangChain-RAG-1C3C3C?style=flat)
+![Railway](https://img.shields.io/badge/Deploy-Railway-0B0D0E?style=flat&logo=railway&logoColor=white)
+![License](https://img.shields.io/badge/License-MIT-yellow?style=flat)
+
+---
+
+## ¿Qué es?
+
+**Spring Tutor Agent** es una aplicación full-stack que combina un backend en Spring Boot, un agente de IA en Python con LangChain y un frontend en Angular para crear un tutor interactivo sobre el ecosistema Spring.
+
+El agente usa el patrón **RAG (Retrieval-Augmented Generation)**: antes de responder, recupera los fragmentos más relevantes de la documentación oficial de Spring y los inyecta en el contexto del LLM. Esto garantiza respuestas precisas y fundamentadas en la documentación real.
 
 ---
 
 ## ✨ Funcionalidades
 
-- 🤖 **Chat con tutor IA** — interfaz conversacional impulsada por DeepSeek v3 vía OpenRouter
-- 📚 **RAG sobre docs de Spring** — recupera los chunks más relevantes de la documentación antes de cada respuesta
-- 💬 **Renderizado Markdown** — bloques de código, tablas y explicaciones formateadas
-<!-- - 🗄️ **Persistencia de mensajes** — guardados en PostgreSQL vía Supabase -->
+- 🤖 **Chat conversacional** — interfaz fluida impulsada por DeepSeek v3 vía OpenRouter
+- 📚 **RAG sobre documentación oficial** — 379 chunks indexados de Spring Boot, Spring Data JPA, Spring Security y más
+- 🎯 **Agente especializado** — rechaza preguntas fuera del ecosistema Spring
+- 💬 **Markdown + Syntax Highlighting** — respuestas con código formateado y resaltado
+- 🛡️ **Manejo de errores robusto** — excepciones personalizadas y respuestas HTTP semánticas (503, etc.)
+- 🧪 **Tests unitarios** — cobertura con JUnit 5 + Mockito
 
 ---
 
 ## 🏗️ Arquitectura
 
 ```
-Angular (4200)
-      ↕ HTTP/REST
-Spring Boot (8080)   ← API + proxy
-      ↕ HTTP interno
-Python FastAPI (8000) ← LangChain + RAG
-      ↕
-ChromaDB  +  PostgreSQL (Supabase)
+┌─────────────────────────────────────────────────────┐
+│                                                     │
+│   Angular 19          Spring Boot 3.5      FastAPI  │
+│   (Frontend)    ────▶  (Backend/Proxy)  ────▶ (IA)  │
+│                  REST                   HTTP        │
+│                                           │         │
+│                                      ChromaDB       │
+│                                      PostgreSQL     │
+└─────────────────────────────────────────────────────┘
 ```
 
-Angular solo habla con Spring Boot. Spring Boot hace de proxy hacia el agente Python. El agente nunca está expuesto directamente a internet.
+**Decisión de diseño:** Angular nunca habla directamente con el agente Python. Spring Boot actúa como proxy y capa de seguridad — el agente nunca está expuesto a internet.
 
 ---
 
 ## 🛠️ Stack tecnológico
 
-| Capa      | Tecnología                        | Puerto  |
-| --------- | --------------------------------- | ------- |
-| Frontend  | Angular 19 + Tailwind CSS         | 4200    |
-| Backend   | Spring Boot 3.5 + Java 21         | 8080    |
-| Agente IA | Python 3.12 + FastAPI + LangChain | 8000    |
-| Vector DB | ChromaDB                          | interno |
-| LLM       | DeepSeek v3 vía OpenRouter        | —       |
+| Capa          | Tecnología                        | Descripción                                |
+| ------------- | --------------------------------- | ------------------------------------------ |
+| Frontend      | Angular 19 + Tailwind CSS         | Chat UI con Markdown y syntax highlighting |
+| Backend       | Spring Boot 3.5 + Java 21         | API REST + proxy al agente                 |
+| Agente IA     | Python 3.12 + FastAPI + LangChain | Pipeline RAG + LLM                         |
+| Vector DB     | ChromaDB                          | Almacén de embeddings                      |
+| LLM           | DeepSeek v3 vía OpenRouter        | Generación de respuestas                   |
+| Base de datos | PostgreSQL (Supabase)             | Persistencia de mensajes                   |
+| Contenedores  | Docker + Docker Compose           | Orquestación local                         |
+| Deploy        | Railway                           | Despliegue en producción                   |
 
 ---
 
 ## 🤖 Pipeline RAG
 
-1. La documentación oficial de Spring se scrapea, se divide en chunks y se indexa en ChromaDB con embeddings
-2. Cuando el usuario pregunta, se recuperan los 8 chunks más relevantes
-3. Esos chunks se inyectan en el prompt junto con el historial de la conversación
-4. El LLM genera la respuesta con ese contexto
+```
+Pregunta del usuario
+        │
+        ▼
+Embeddings de la pregunta
+        │
+        ▼
+Búsqueda semántica en ChromaDB
+        │
+        ▼
+Top 8 chunks más relevantes
+        │
+        ▼
+Prompt enriquecido con contexto + historial
+        │
+        ▼
+DeepSeek v3 genera la respuesta
+        │
+        ▼
+Respuesta con Markdown al usuario
+```
 
-**Fuentes indexadas:**
+**Documentación indexada:**
 
-- Spring Boot — Getting Started y features principales
-- Spring Data JPA — documentación de referencia
-- Anotaciones de Spring, REST y más
+- Spring Boot — Getting Started, Auto-configuration, Actuator
+- Spring Data JPA — repositorios, entidades, queries
+- Spring MVC — controllers, anotaciones REST
+- Spring Security — autenticación, autorización
 
 ---
 
-## 🚀 Cómo ejecutarlo
+## 🚀 Ejecutar en local
 
-### Requisitos
-
-- Java 21
-- Python 3.12
-- Node.js 18+
-- API key de [OpenRouter](https://openrouter.ai)
-
-### 1. Clonar el repositorio
+### Opción 1: Docker Compose (recomendado)
 
 ```bash
 git clone https://github.com/GuilleAlvareez/Spring-Tutor-Agent.git
 cd Spring-Tutor-Agent
+
+# Crear fichero de variables de entorno
+cp .env.example .env   # Rellenar con tus credenciales
+
+docker-compose up --build
 ```
 
-### 2. Agente Python
+Abre [http://localhost](http://localhost)
+
+### Opción 2: Manual
+
+**Requisitos:** Java 21, Python 3.12, Node.js 18+, API key de [OpenRouter](https://openrouter.ai)
 
 ```bash
+# 1. Agente Python
 cd agent
-python -m venv venv
-venv\Scripts\activate        # Windows
+python -m venv venv && venv\Scripts\activate   # Windows
 pip install -r requirements.txt
-
-cp .env.example .env         # Rellenar credenciales
-
-python ingest.py             # Indexar documentación (solo una vez)
+cp .env.example .env   # Rellenar credenciales
+python ingest.py       # Indexar documentación (solo la primera vez)
 uvicorn main:app --reload --port 8000
-```
 
-### 3. Backend Spring Boot
-
-```bash
+# 2. Backend Spring Boot
 cd backend
-# Copiar y rellenar credenciales
-cp src/main/resources/application.properties.example src/main/resources/application.properties
+./mvnw spring-boot:run   # Linux/Mac
+mvnw.cmd spring-boot:run # Windows
 
-mvnw.cmd spring-boot:run     # Windows
-./mvnw spring-boot:run       # Linux/Mac
-```
-
-### 4. Frontend Angular
-
-```bash
+# 3. Frontend Angular
 cd frontend
-npm install
-ng serve
+npm install && ng serve
 ```
 
 Abre [http://localhost:4200](http://localhost:4200)
+
+---
+
+## 🧪 Tests
+
+```bash
+cd backend
+./mvnw test
+```
+
+```
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0 — BUILD SUCCESS
+```
 
 ---
 
@@ -113,29 +160,29 @@ Abre [http://localhost:4200](http://localhost:4200)
 
 ```
 Spring-Tutor-Agent/
-├── frontend/               # Angular 19
+├── frontend/                        # Angular 19
 │   └── src/app/
-│       ├── pages/chat/     # Componente del chat
-│       └── services/       # Servicios HTTP
-├── backend/                # Spring Boot
+│       ├── pages/chat/              # Componente principal del chat
+│       └── services/                # Servicios HTTP
+├── backend/                         # Spring Boot
 │   └── src/main/java/com/springtutor/backend/
-│       ├── agent/          # Proxy hacia el agente Python
-│       ├── controller/     # Endpoints REST
-│       ├── service/        # Lógica de negocio
-│       ├── model/          # Entidades JPA
-│       └── config/         # CORS, seguridad
-└── agent/                  # Python + LangChain
+│       ├── agent/                   # Proxy + manejo de errores
+│       ├── config/                  # CORS, GlobalExceptionHandler
+│       ├── controller/              # Endpoints REST
+│       ├── service/                 # Lógica de negocio
+│       └── model/                   # Entidades JPA
+└── agent/                           # Python + LangChain
     ├── app/
-    │   ├── agent.py        # Lógica RAG + LLM
-    │   ├── rag/            # Loader, vectorstore, retriever
-    │   └── config.py       # Configuración centralizada
-    ├── data/               # Documentación local en markdown
-    ├── ingest.py           # Script de indexación
-    └── main.py             # App FastAPI
+    │   ├── agent.py                 # Lógica RAG + LLM + system prompt
+    │   ├── rag/                     # Loader, vectorstore, retriever
+    │   └── config.py                # Configuración centralizada
+    ├── data/                        # Documentación en Markdown
+    ├── ingest.py                    # Script de indexación
+    └── main.py                      # App FastAPI
 ```
 
 ---
 
 ## 📄 Licencia
 
-MIT
+MIT © [Guillermo Álvarez](https://github.com/GuilleAlvareez)
