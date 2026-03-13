@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://backend-production-e16b.up.railway.app/api/chat',
+  apiUrl: 'https://backend-c4t8.onrender.com/api/chat',
 };
