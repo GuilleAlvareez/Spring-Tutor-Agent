@@ -12,7 +12,7 @@ public class WebConfig implements WebMvcConfigurer {
   public void addCorsMappings(CorsRegistry registry) {
     registry.addMapping("/api/**") // aplica a todos los endpoints /api/
         .allowedOrigins("http://localhost:4200", "http://localhost",
-            "https://backend-c4t8.onrender.com/api/chat")
+            "https://spring-tutor-agent.vercel.app")
         .allowedMethods("GET", "POST", "PUT", "DELETE") // métodos permitidos
         .allowedHeaders("*"); // permite todos los headers
   }
