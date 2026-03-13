@@ -18,6 +18,10 @@ class ChatResponse(BaseModel):
 def health():
     return {"status": "Agent is running!"}
 
+@app.head("/health")
+def health_head():
+    return Response(status_code=200)
+
 # Endpoint principal, equivalente al @PostMapping("/message") de Spring
 @app.post("/chat")
 def chat(request: ChatRequest):

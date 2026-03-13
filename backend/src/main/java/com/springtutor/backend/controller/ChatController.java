@@ -1,7 +1,8 @@
 package com.springtutor.backend.controller;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.web.bind.annotation.RequestMethod;
 import com.springtutor.backend.dto.ChatRequest;
 import com.springtutor.backend.dto.ChatResponse;
 import com.springtutor.backend.service.ChatService;
@@ -13,6 +14,11 @@ public class ChatController {
 
   public ChatController(ChatService chatService) {
     this.chatService = chatService;
+  }
+
+  @RequestMapping(value = "/health", method = RequestMethod.HEAD)
+  public ResponseEntity<Void> healthHead() {
+    return ResponseEntity.ok().build();
   }
 
   @GetMapping("/health")
